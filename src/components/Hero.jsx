@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import { ArrowRight, Github, Linkedin } from "lucide-react";
 import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
+import MatrixRain from './MatrixRain';
 import MagneticButton from "./ui/MagneticButton";
-import Terminal from "./Terminal";
+import InteractiveTerminal from './InteractiveTerminal';
 
 const Hero = () => {
     const particlesInit = useCallback(async (engine) => {
@@ -87,6 +88,11 @@ const Hero = () => {
                     options={particlesOptions}
                     className="w-full h-full"
                 />
+            </div>
+
+            {/* Terminal Component - Interactive */}
+            <div className="z-10 w-full max-w-3xl mt-12 mb-12">
+                <InteractiveTerminal />
             </div>
 
             {/* Content Layer */}
