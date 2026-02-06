@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Users, Book, ExternalLink, Loader2, AlertCircle } from 'lucide-react';
+import { Github, Users, Book, ExternalLink, AlertCircle } from 'lucide-react';
 
 const GithubStats = () => {
     const [stats, setStats] = useState(null);
@@ -59,9 +59,25 @@ const GithubStats = () => {
                 <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_50%,rgba(0,0,0,0.3)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20" />
 
                 {loading ? (
-                    <div className="w-full h-24 flex items-center justify-center gap-2 text-cyan-400 font-mono text-sm">
-                        <Loader2 className="animate-spin" size={20} />
-                        <span>SCANNING_DATABASE...</span>
+                    <div className="flex w-full gap-6 animate-pulse">
+                        {/* Avatar Skeleton */}
+                        <div className="relative shrink-0">
+                            <div className="w-24 h-24 rounded-full bg-slate-800 border-2 border-slate-700/50"></div>
+                        </div>
+
+                        {/* Content Skeleton */}
+                        <div className="flex flex-col w-full z-10 justify-center gap-4">
+                            <div className="space-y-2 w-full">
+                                <div className="h-5 w-32 bg-slate-800 rounded"></div>
+                                <div className="h-3 w-20 bg-slate-800 rounded"></div>
+                            </div>
+
+                            <div className="grid grid-cols-3 gap-2 w-full">
+                                {[1, 2, 3].map((i) => (
+                                    <div key={i} className="h-14 bg-slate-800/50 rounded-lg border border-white/5"></div>
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 ) : error ? (
                     <div className="w-full h-24 flex items-center justify-center gap-2 text-red-400 font-mono text-sm">
