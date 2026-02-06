@@ -1,141 +1,148 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X, ExternalLink, Github } from 'lucide-react';
-import ProjectCard from './ProjectCard';
-import TechBadge from './ui/TechBadge';
+import { Github, ExternalLink, Code2, X } from 'lucide-react';
 
-const projectsData = [
-    {
-        id: 1,
-        title: 'DuaSaku',
-        description: 'A comprehensive personal finance manager built with Flutter. Track expenses, manage budgets, and visualize savings goals.',
-        longDescription: "DuaSaku represents a modern approach to personal finance management. Built with Flutter for cross-platform performance, it utilizes SQLite for robust local data storage, ensuring user privacy and offline capability. The app features intuitive visualizations for spending habits, custom budget categories, and goal tracking.",
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCZ1aLjeS3m-Gdnajd3T1Kb6hm2IsdCqWqYxRGPrt71waEccGESWy7_D-OkqFwK-bb6vOC-jXzv-DNXoopkeM8-ZR5tSKwDwfswtITmpgj_uEgIoYThsieE_MEhk25-BOk7KlS70RqN54NdAM_v-3oWZonAZyTzTPqZIx1PD5WwJq2_o-52w1vZ1OY0fj8yIptGFYVcdih8rGBYIIzPGllo9YTPrVDtBg06FVNxfcQGMjoYUxVNqBH-aqdunyfSM5xtUP9o3PFbbTo',
-        video: 'https://cdn.dribbble.com/users/1615584/screenshots/11267803/media/e14f08f82875b486950e932906b86554.mp4', // Placeholder video
-        tech: ['Flutter', 'Dart', 'SQLite'],
-        status: 'Live',
-        statusColor: 'bg-green-500/20 text-green-400 border-green-500/30',
-        className: 'md:col-span-2'
-    },
-    {
-        id: 2,
-        title: 'Loom',
-        description: 'Scalable cloud architecture visualizer.',
-        longDescription: "Loom simplifies the complexity of cloud infrastructure by providing a visual interface to design and monitor AWS architectures. Built with React and utilizing modern diagramming libraries.",
-        image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD3Tkth9qpqYhda1fYYLKmfBMIhIuBSKFK45fQve9bYH_11mvyqbR_KYV-bABrY35shkE4UC-NqK-uSUdgQ8ZlFtvXzbJJI75CtrEwkQFZMfVcYJfcfp5ch9pWy7bogy3QNGrE7wHJwSdaTb1JDdC6PU1M4dVGuIkGO33kbak0nVI4Qwo1n_AkXS_ayqpd9oJIqLMYmismgjIUo_Owi_zHWK9hNqcGC4NQuRjzQJILqXUSClwhpOoWGlaXOLXJPw71-6JW0d7Wl2GA',
-        tech: ['AWS', 'React', 'Tailwind'],
-        status: 'Coming Soon',
-        statusColor: 'bg-slate-500/20 text-slate-300 border-slate-500/30',
-        className: ''
-    },
-    {
-        id: 3,
-        title: 'Portfolio v1',
-        description: 'My previous personal site built with basic HTML/CSS.',
-        longDescription: "A minimalist portfolio site demonstrating core web fundamentals without frameworks. Served as a learning platform for CSS Grid and Flexbox.",
-        image: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=1000', // Placeholder
-        tech: ['HTML', 'CSS', 'JavaScript'],
-        status: 'Open Source',
-        statusColor: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
-        className: 'md:col-span-1'
-    }
+const projects = [
+  {
+    id: 1,
+    title: "DuaSaku",
+    description: "A comprehensive personal finance manager built with Flutter. Track expenses, manage budgets, and visualize savings goals.",
+    fullDescription: "DuaSaku is designed to solve the complexity of financial tracking for students. It features local database storage (SQLite), interactive charts using FL Chart, and export to CSV functionality. Built with Clean Architecture principles.",
+    tech: ["Flutter", "Dart", "SQLite", "GetX"],
+    image: "/projects/duasaku.png", // Ganti dengan gambar aslimu
+    link: "https://duasaku.naufalsaputra.dev/", 
+    github: "https://github.com/naansa-naufalsaputra/duasaku-pwa",
+    status: "Live"
+  },
 ];
 
 const Projects = () => {
-    const [selectedId, setSelectedId] = useState(null);
-    const selectedProject = projectsData.find(p => p.id === selectedId);
+  const [selectedId, setSelectedId] = useState(null);
 
-    return (
-        <section id="projects" className="mb-32 pt-20 relative scroll-mt-32">
-            <div className="flex items-center justify-between mb-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white tracking-tight">Selected Projects</h2>
-                <a href="#" className="text-sm font-medium text-slate-400 hover:text-primary transition-colors flex items-center gap-1">
-                    See All <ArrowRight size={16} />
-                </a>
+  return (
+    <section id="projects" className="py-20 px-6 max-w-7xl mx-auto min-h-screen">
+      <h2 className="text-4xl font-black text-white mb-12 flex items-center gap-3">
+        <Code2 className="text-cyan-400" /> Selected Projects
+      </h2>
+
+      {/* Grid Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project) => (
+          <motion.div
+            layoutId={project.id} // Kunci animasi 1
+            key={project.id}
+            onClick={() => setSelectedId(project.id)}
+            className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 cursor-pointer shadow-xl hover:shadow-cyan-500/20 hover:border-cyan-500/50 transition-colors"
+            whileHover={{ y: -5 }}
+          >
+            {/* Image Preview */}
+            <div className="h-48 overflow-hidden relative">
+               <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent z-10 transition-all" />
+              <motion.img 
+                src={project.image} 
+                alt={project.title} 
+                className="w-full h-full object-cover"
+              />
+               <div className="absolute top-3 right-3 z-20">
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-black/50 backdrop-blur-md border border-white/10 text-white">
+                  {project.status}
+                </span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
-                {projectsData.map((project) => (
-                    <ProjectCard
-                        key={project.id}
-                        project={project}
-                        onClick={() => setSelectedId(project.id)}
-                    />
-                ))}
+            {/* Content Preview */}
+            <div className="p-6">
+              <motion.h3 className="text-xl font-bold text-white mb-2">{project.title}</motion.h3>
+              <p className="text-slate-400 text-sm line-clamp-2">{project.description}</p>
+              <div className="mt-4 text-cyan-400 text-xs font-medium uppercase tracking-wider">
+                Click to expand
+              </div>
             </div>
+          </motion.div>
+        ))}
+      </div>
 
-            <AnimatePresence>
-                {selectedId && selectedProject && (
-                    <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
-                        {/* Backdrop */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setSelectedId(null)}
-                            className="absolute inset-0 bg-black/60 backdrop-blur-md"
-                        />
+      {/* POP-UP MODAL (AnimatePresence) */}
+      <AnimatePresence>
+        {selectedId && (
+          <>
+            {/* Backdrop Blur */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedId(null)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            />
 
-                        {/* Expanded Card */}
-                        <motion.div
-                            layoutId={`card-${selectedProject.id}`}
-                            className="w-full max-w-3xl bg-[#161b22] rounded-3xl overflow-hidden shadow-2xl z-10 relative flex flex-col max-h-[90vh]"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {/* Close Button */}
-                            <button
-                                onClick={() => setSelectedId(null)}
-                                className="absolute top-4 right-4 z-20 p-2 rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
+            {/* Modal Card */}
+            <div className="fixed inset-0 flex items-center justify-center z-50 p-4 pointer-events-none">
+                <motion.div
+                    layoutId={selectedId} // Kunci animasi 2 (Harus sama dengan card)
+                    className="w-full max-w-2xl bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl pointer-events-auto relative"
+                >
+                    {/* Tombol Close */}
+                    <button 
+                        onClick={(e) => { e.stopPropagation(); setSelectedId(null); }}
+                        className="absolute top-4 right-4 p-2 bg-black/50 rounded-full text-white hover:bg-red-500/80 transition-colors z-30"
+                    >
+                        <X size={20} />
+                    </button>
 
-                            {/* Image Section */}
-                            <div className="relative h-64 md:h-80 w-full shrink-0">
-                                <motion.img
-                                    layoutId={`image-${selectedProject.id}`}
-                                    src={selectedProject.image}
-                                    alt={selectedProject.title}
-                                    className="w-full h-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#161b22] to-transparent opacity-80" />
+                    {(() => {
+                        const project = projects.find(p => p.id === selectedId);
+                        return (
+                            <div className="flex flex-col h-full max-h-[80vh] overflow-y-auto">
+                                {/* Modal Image */}
+                                <div className="h-64 w-full relative shrink-0">
+                                    <img 
+                                        src={project.image} 
+                                        alt={project.title} 
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-slate-900 to-transparent" />
+                                </div>
 
-                                <div className="absolute bottom-0 left-0 p-8 w-full">
-                                    <motion.h3 layoutId={`title-${selectedProject.id}`} className="text-3xl md:text-4xl font-bold text-white mb-2">{selectedProject.title}</motion.h3>
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {selectedProject.tech.map(tag => (
-                                            <TechBadge key={tag} name={tag} />
+                                {/* Modal Content */}
+                                <div className="p-8">
+                                    <motion.h3 className="text-3xl font-black text-white mb-2">
+                                        {project.title}
+                                    </motion.h3>
+                                    
+                                    <div className="flex flex-wrap gap-2 mb-6">
+                                        {project.tech.map((t, i) => (
+                                            <span key={i} className="px-3 py-1 bg-cyan-900/30 text-cyan-400 rounded-full text-sm border border-cyan-500/30">
+                                                {t}
+                                            </span>
                                         ))}
+                                    </div>
+
+                                    <p className="text-slate-300 leading-relaxed mb-8 text-lg">
+                                        {project.fullDescription || project.description}
+                                    </p>
+
+                                    {/* Action Buttons */}
+                                    <div className="flex gap-4">
+                                        {project.link !== '#' && (
+                                            <a href={project.link} target="_blank" className="flex-1 py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold rounded-xl flex items-center justify-center gap-2 transition-colors">
+                                                <ExternalLink size={20} /> Visit Site
+                                            </a>
+                                        )}
+                                        <a href={project.github} target="_blank" className="flex-1 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-colors border border-slate-600">
+                                            <Github size={20} /> Source Code
+                                        </a>
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Content Section */}
-                            <div className="p-8 pt-2 overflow-y-auto">
-                                <motion.p
-                                    layoutId={`desc-${selectedProject.id}`}
-                                    className="text-slate-300 text-lg leading-relaxed mb-8"
-                                >
-                                    {selectedProject.longDescription || selectedProject.description}
-                                </motion.p>
-
-                                <div className="flex gap-4">
-                                    <a href="#" className="flex items-center gap-2 bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition-colors">
-                                        <span>Visit Site</span>
-                                        <ExternalLink size={18} />
-                                    </a>
-                                    <a href="#" className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-xl font-bold transition-colors border border-white/10">
-                                        <Github size={20} />
-                                        <span>Source Code</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                )}
-            </AnimatePresence>
-        </section>
-    );
+                        );
+                    })()}
+                </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
+    </section>
+  );
 };
 
 export default Projects;

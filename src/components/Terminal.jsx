@@ -12,7 +12,7 @@ const Terminal = () => {
         "initializing system...",
         "loading cloud_architecture...",
         "cyber_security_protocols: ACTIVE",
-        "status: OPEN_TO_WORK"
+        "status: READY_TO_INNOVATE"
     ];
 
     // Cursor blinking effect
