@@ -9,9 +9,13 @@ import MatrixRain from './components/MatrixRain';
 import GithubStats from './components/GithubStats';
 import SEO from './components/SEO';
 import { AnimatePresence } from 'framer-motion';
+import { useTheme } from './context/ThemeContext';
+import CyberCursor from './components/ui/CyberCursor';
+import HRModeToggle from './components/ui/HRModeToggle';
 
 function App() {
   const [showMatrix, setShowMatrix] = useState(false);
+  const { isProMode } = useTheme();
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -45,59 +49,32 @@ function App() {
     };
   }, []);
 
-  // Easter Egg Logic
-  useEffect(() => {
-    let keySequence = [];
-    const secretCode = 'hack';
-
-    const handleKeyDown = (e) => {
-      // Reset on Escape
-      if (e.key === 'Escape') {
-        setShowMatrix(false);
-        keySequence = [];
-        return;
-      }
-
-      keySequence.push(e.key.toLowerCase());
-
-      // Keep sequence length same as code
-      if (keySequence.length > secretCode.length) {
-        keySequence.shift();
-      }
-
-      if (keySequence.join('') === secretCode) {
-        setShowMatrix(true);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
   return (
-    <>
+    <div className={`min-h-screen relative overflow-x-hidden transition-colors duration-500 ${isProMode ? 'bg-slate-200 text-slate-800' : 'bg-slate-950 text-white'}`}>
       <SEO />
-      <AnimatePresence>
-        {showMatrix && <MatrixRain />}
-      </AnimatePresence>
 
-      {/* Background ambient glows */}
-      <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[120px]"></div>
-        <div className="absolute top-[40%] -right-[10%] w-[40%] h-[40%] rounded-full bg-secondary/10 blur-[100px]"></div>
-        <div className="absolute -bottom-[20%] left-[20%] w-[60%] h-[40%] rounded-full bg-primary/10 blur-[130px]"></div>
-      </div>
+      <CyberCursor />
+      <HRModeToggle />
 
+
+
+      {/* 🔥 BAGIAN PENTING 2: Navbar ditaruh disini, sejajar dengan konten utama */}
       <Navbar />
 
-      <main className="w-full max-w-[1200px] mx-auto px-6 pb-20">
-        <Hero />
+      {/* 🔥 BAGIAN PENTING 3: Konten Website Utama dibungkus wrapper ini dengan z-10 */}
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 pb-20">
+        <Hero triggerHack={() => !isProMode && setShowMatrix(true)} />
         <GithubStats />
         <Projects />
         <Skills />
         <Footer />
-      </main>
-    </>
+      </div>
+
+      {/* 🔥 BAGIAN PENTING: Matrix Rain ditaruh PALING BAWAH agar Z-Index Menang 🔥 */}
+      <AnimatePresence>
+        {showMatrix && !isProMode && <MatrixRain onExit={() => setShowMatrix(false)} />}
+      </AnimatePresence>
+    </div>
   );
 }
 
