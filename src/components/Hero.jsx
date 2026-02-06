@@ -90,10 +90,7 @@ const Hero = () => {
                 />
             </div>
 
-            {/* Terminal Component - Interactive */}
-            <div className="z-10 w-full max-w-3xl mt-12 mb-12">
-                <InteractiveTerminal />
-            </div>
+
 
             {/* Content Layer */}
             <div className="relative z-10 w-full max-w-5xl mx-auto px-4 flex flex-col items-center text-center justify-center min-h-screen">
@@ -138,7 +135,7 @@ const Hero = () => {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="w-full max-w-2xl mt-12 mb-12"
                 >
-                    <Terminal />
+                    <InteractiveTerminal />
                 </motion.div>
 
                 {/* CTA Buttons */}

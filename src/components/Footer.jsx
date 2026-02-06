@@ -4,7 +4,7 @@ const Footer = () => {
     return (
         <footer id="contact" className="border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center gap-6 pb-10 scroll-mt-32">
             <div className="flex flex-col gap-1 items-center md:items-start">
-                <span className="text-xl font-bold text-white tracking-tight">NS</span>
+                <span className="text-xl font-bold text-white tracking-tight">Naufal Saputra</span>
                 <p className="text-sm text-slate-500">© 2026 Naufal Saputra. All rights reserved.</p>
             </div>
             <div className="flex items-center gap-6">
