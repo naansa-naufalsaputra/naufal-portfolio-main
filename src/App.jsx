@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Terminal, BookOpen } from 'lucide-react';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -11,11 +12,10 @@ import SEO from './components/SEO';
 import { AnimatePresence } from 'framer-motion';
 import { useTheme } from './context/ThemeContext';
 import CyberCursor from './components/ui/CyberCursor';
-import HRModeToggle from './components/ui/HRModeToggle';
 
 function App() {
   const [showMatrix, setShowMatrix] = useState(false);
-  const { isProMode } = useTheme();
+  const { isProMode, toggleMode } = useTheme();
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -54,8 +54,32 @@ function App() {
       <SEO />
 
       <CyberCursor />
-      <HRModeToggle />
 
+      {/* TOMBOL TOGGLE MODE (Reader View vs Hacker View) */}
+      <button
+        onClick={toggleMode}
+        className="fixed bottom-5 left-5 z-50 bg-white/90 backdrop-blur-sm text-slate-900 px-5 py-2.5 rounded-full shadow-2xl border border-slate-200 flex items-center gap-3 hover:bg-slate-50 hover:scale-105 transition-all duration-300 cursor-pointer group"
+      >
+        {isProMode ? (
+          // TAMPILAN SAAT READER VIEW AKTIF
+          <>
+            <div className="relative">
+              <BookOpen size={18} className="text-slate-600 group-hover:text-blue-600 transition-colors" />
+              <span className="absolute -top-1 -right-1 flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              </span>
+            </div>
+            <span className="font-bold text-sm font-sans tracking-wide text-slate-700">Reader View</span>
+          </>
+        ) : (
+          // TAMPILAN SAAT HACKER VIEW AKTIF
+          <>
+            <Terminal size={18} className="text-slate-900 group-hover:text-emerald-600 transition-colors" />
+            <span className="font-bold text-sm font-mono tracking-wider">Hacker View</span>
+          </>
+        )}
+      </button>
 
 
       {/* 🔥 BAGIAN PENTING 2: Navbar ditaruh disini, sejajar dengan konten utama */}
