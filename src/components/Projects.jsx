@@ -6,15 +6,27 @@ import { useTheme } from '../context/ThemeContext';
 const projects = [
     {
         id: 1,
+        title: "Nebulla",
+        description: "A hybrid AI workspace bridging digital ink and structured notes, powered by Gemini 2.0.",
+        fullDescription: "Nebulla bridges the gap between hand-written notes and structured documents. It uses Google Gemini 3.0 to understand context, assist with research, and solve math equations directly from your handwriting.",
+        tech: ["React 19", "TypeScript", "Vite", "Tailwind", "Gemini 3.0"],
+        image: "/projects/nebulla.png",
+        link: "https://nebulla.naufalsaputra.dev/",
+        github: "https://github.com/naansa-naufalsaputra/nebulla-app",
+        status: "Beta"
+    },
+    {
+        id: 2,
         title: "DuaSaku",
-        description: "A comprehensive personal finance manager built with Flutter. Track expenses, manage budgets, and visualize savings goals.",
-        fullDescription: "DuaSaku is designed to solve the complexity of financial tracking for students. It features local database storage (SQLite), interactive charts using FL Chart, and export to CSV functionality. Built with Clean Architecture principles.",
-        tech: ["Flutter", "Dart", "SQLite", "GetX"],
-        image: "/projects/duasaku.png", // Ganti dengan gambar aslimu
+        description: "A comprehensive personal finance manager built with Next.js PWA. Track expenses, manage budgets, and visualize savings goals.",
+        fullDescription: "DuaSaku is designed to solve the complexity of financial tracking for students. It features local-first storage, interactive charts, and export to CSV functionality. Built with modern web technologies for performance.",
+        tech: ["Next.js", "Tailwind", "Zustand", "Firebase"],
+        image: "/projects/duasaku.png",
         link: "https://duasaku.naufalsaputra.dev/",
         github: "https://github.com/naansa-naufalsaputra/duasaku-pwa",
         status: "Live"
     },
+
 ];
 
 const Projects = () => {
@@ -35,8 +47,8 @@ const Projects = () => {
                         key={project.id}
                         onClick={() => setSelectedId(project.id)}
                         className={`group relative rounded-2xl overflow-hidden border cursor-pointer shadow-xl transition-colors ${isProMode
-                                ? 'bg-white border-slate-200 hover:shadow-2xl hover:border-slate-300'
-                                : 'bg-slate-900 border-slate-800 hover:shadow-cyan-500/20 hover:border-cyan-500/50'
+                            ? 'bg-white border-slate-200 hover:shadow-2xl hover:border-slate-300'
+                            : 'bg-slate-900 border-slate-800 hover:shadow-cyan-500/20 hover:border-cyan-500/50'
                             }`}
                         whileHover={{ y: -5 }}
                     >
@@ -85,8 +97,8 @@ const Projects = () => {
                             <motion.div
                                 layoutId={selectedId} // Kunci animasi 2 (Harus sama dengan card)
                                 className={`w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl pointer-events-auto relative ${isProMode
-                                        ? 'bg-white border border-slate-200'
-                                        : 'bg-slate-900 border border-slate-700'
+                                    ? 'bg-white border border-slate-200'
+                                    : 'bg-slate-900 border border-slate-700'
                                     }`}
                             >
                                 {/* Tombol Close */}
@@ -120,8 +132,8 @@ const Projects = () => {
                                                 <div className="flex flex-wrap gap-2 mb-6">
                                                     {project.tech.map((t, i) => (
                                                         <span key={i} className={`px-3 py-1 rounded-full text-sm border ${isProMode
-                                                                ? 'bg-slate-100 text-slate-700 border-slate-200'
-                                                                : 'bg-cyan-900/30 text-cyan-400 border-cyan-500/30'
+                                                            ? 'bg-slate-100 text-slate-700 border-slate-200'
+                                                            : 'bg-cyan-900/30 text-cyan-400 border-cyan-500/30'
                                                             }`}>
                                                             {t}
                                                         </span>
